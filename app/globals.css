@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+  }
+  input,
+  button,
+  select,
+  textarea {
+    font: inherit;
+  }
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-canvas;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-2xl bg-accent px-5 text-base font-bold text-white shadow-sm transition hover:bg-accent-dark active:scale-[.99] disabled:cursor-not-allowed disabled:bg-accent/40 disabled:shadow-none;
+  }
+  .btn-secondary {
+    @apply inline-flex min-h-touch w-full items-center justify-center gap-2 rounded-2xl border border-line bg-white px-5 font-semibold text-ink transition hover:border-ink/30 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-link {
+    @apply inline-flex min-h-touch items-center justify-center px-3 font-semibold text-accent hover:underline;
+  }
+  .card {
+    @apply rounded-2xl border border-line bg-white;
+  }
+  .field-label {
+    @apply mb-1.5 block text-sm font-semibold text-ink;
+  }
+  .field-input {
+    @apply block min-h-[52px] w-full rounded-xl border border-line bg-white px-4 text-lg font-semibold tracking-wide text-ink placeholder:font-medium placeholder:tracking-normal placeholder:text-ink-faint focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20;
+  }
+  .field-error {
+    @apply mt-1.5 text-sm font-medium text-danger;
+  }
+  .field-hint {
+    @apply mt-1.5 text-sm text-ink-muted;
+  }
+}
