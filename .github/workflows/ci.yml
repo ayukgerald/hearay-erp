@@ -29,7 +29,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npx prisma migrate deploy
+      - run: npm run db:deploy
       - run: npm run lint
       - run: npm run typecheck
       - name: Unit + integration tests

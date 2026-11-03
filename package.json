@@ -4,24 +4,25 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "node node_modules/prisma/build/index.js generate && next build",
     "start": "next start",
     "lint": "eslint .",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "db:migrate": "prisma migrate dev",
-    "db:deploy": "prisma migrate deploy",
-    "db:seed": "prisma db seed",
-    "postinstall": "prisma generate"
+    "db:migrate": "node node_modules/prisma/build/index.js migrate dev",
+    "db:deploy": "node node_modules/prisma/build/index.js migrate deploy",
+    "db:seed": "node node_modules/prisma/build/index.js db seed",
+    "postinstall": "node node_modules/prisma/build/index.js generate",
+    "db:generate": "node node_modules/prisma/build/index.js generate"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@fontsource-variable/manrope": "^5.2.8",
-    "@prisma/client": "^6.19.0",
+    "@prisma/client": "6.19.0",
     "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.75.0",
     "next": "^15.5.6",
@@ -41,7 +42,7 @@
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
-    "prisma": "^6.19.0",
+    "prisma": "6.19.0",
     "tailwindcss": "^3.4.18",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",

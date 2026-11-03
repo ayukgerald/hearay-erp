@@ -9,7 +9,7 @@ Renew a DStv subscription from a phone or desktop. The customer picks a package 
 ```bash
 cp .env.example .env            # defaults: FakeProvider, console SMS, dev admin login
 npm install
-npx prisma migrate dev          # needs Postgres at DATABASE_URL
+npm run db:migrate              # needs Postgres at DATABASE_URL
 npm run db:seed                 # 4 packages (price 0, hidden) + owner from SEED_OWNER_EMAIL
 npm run dev
 ```
@@ -26,6 +26,8 @@ FakeProvider confirms a payment 10 s after it starts. A phone number ending in *
 | `npm run test:e2e`                   | Playwright: happy path to renewed, failed payment then retry, expiry with a fake clock. Needs `E2E_DATABASE_URL` (throwaway DB) and `npm run build` first. |
 | `scripts/smoke.sh`                   | Creates and pays an order with curl against FakeProvider.                                                                                                  |
 | `npm run lint` / `npm run typecheck` | ESLint / tsc.                                                                                                                                              |
+
+> **Use `npm run db:...` rather than `npx prisma ...`.** The project pins Prisma 6.19.0. A bare `npx prisma` can pick up a newer global Prisma (7.x), which rejects this schema with error P1012.
 
 ## How it fits together
 
@@ -56,7 +58,7 @@ FakeProvider confirms a payment 10 s after it starts. A phone number ending in *
 1. **Supabase.** Create a project. Copy the pooled connection string (port 6543, add `?pgbouncer=true`) into `DATABASE_URL` and the direct one (port 5432) into `DIRECT_URL`. Copy the URL, anon key and service-role key from Settings → API. In Auth → URL configuration, add `https://<your-domain>/admin/set-password` as a redirect URL.
 2. **Migrate and seed** from your machine:
    ```bash
-   DATABASE_URL=... DIRECT_URL=... npx prisma migrate deploy
+   DATABASE_URL=... DIRECT_URL=... npm run db:deploy
    ```
    ```bash
    AUTH_MODE=supabase SEED_OWNER_EMAIL=you@... SEED_OWNER_PASSWORD=... NEXT_PUBLIC_SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... DATABASE_URL=... npm run db:seed
